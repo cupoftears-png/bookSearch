@@ -1,7 +1,10 @@
 // Lien de l'api
 let requeteURL='https://www.googleapis.com/books/v1/volumes?q=';
 
-//Vide les resultats de recher
+/*
+* Vide tous les resultats
+*
+*/
 function flush() {
             var art = document.getElementById('SearchResult');
 
@@ -10,6 +13,10 @@ function flush() {
             }
 }
 
+/*
+*Entrée : JSONObj, le JSON qui detient le resultats de la recherche.
+*Recupère les données du fichier et les insère dans la page Web
+*/
 function populateSection(JSONObj) {
 
         let mySection = document.createElement('section');
@@ -56,6 +63,11 @@ function populateSection(JSONObj) {
         myArticle.appendChild(myHR);
 }
 
+/*
+*Si le JSON n'as aucun resultat, cette fonction est appelée et indique sur la
+page web que la recherche n'as pas été concluente
+*
+*/
 function messageNoResult() {
     let mySection = document.createElement('section');
     mySection.className= "card col-lg-12 shadow-sm";
@@ -79,22 +91,19 @@ function messageNoResult() {
 }
 
 /*
-Fonction BookSearch
-paramatres
-sortie
+Fonction BookSearch : effectue la recherche, et récupère le premier element du
+JSON
+*
 *
 */
 function Booksearch(){
     console.log('Recherche de ' + document.getElementById("bookTitle").value);
-    //console.log(requeteURL+document.getElementById("bookTitle").value);
 
     let reqBook = new XMLHttpRequest();
 
     reqBook.open('GET', requeteURL+document.getElementById("bookTitle").value);
     reqBook.responseType='json';
     reqBook.send();
-
-
 
     reqBook.onload = function () {
         var resultBookSearch =reqBook.response;
@@ -107,9 +116,8 @@ function Booksearch(){
         }
         else
         {
-            console.log(firstResult[0].volumeInfo.title);
-            console.log(firstResult[0].volumeInfo.industryIdentifiers[0].identifier);
-
+            // console.log(firstResult[0].volumeInfo.title);
+            // console.log(firstResult[0].volumeInfo.industryIdentifiers[0].identifier);
             //console.log(firstResult.volumeInfo.authors[1]);
             for (let i =0; i < firstResult[0].volumeInfo.authors.length; i++)
             {
@@ -118,11 +126,6 @@ function Booksearch(){
 
             populateSection(firstResult);
 
-            //let booksData = JSON.parse(resultBook);
-            //console.log(JSON.parse(resultBook));
-            //titre items.0.volumeInfo.title
-            //auteurs items.0.volumeInfo.authors (plusieurs possible)
-            //ISBN  items.0.volumeInfo.industryIdentifiers.0.type.identifier
         }
 
 
