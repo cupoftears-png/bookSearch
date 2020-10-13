@@ -119,11 +119,6 @@ function Booksearch(){
             // console.log(firstResult[0].volumeInfo.title);
             // console.log(firstResult[0].volumeInfo.industryIdentifiers[0].identifier);
             //console.log(firstResult.volumeInfo.authors[1]);
-            for (let i =0; i < firstResult[0].volumeInfo.authors.length; i++)
-            {
-                console.log(firstResult[0].volumeInfo.authors[i]);
-            }
-
             populateSection(firstResult);
 
         }
